@@ -16,19 +16,19 @@ class Record(models.Model):
 
 
 class User(models.Model):
-    ID = models.TextField()
+    UID = models.TextField()
     name = models.TextField()
 
     @staticmethod
     def addUser(ID, name):
         user = User()
-        user.ID = ID
+        user.UID = ID
         user.name = name
         user.save()
 
     @staticmethod
     def getAllUsers():
-        result = {u.ID: u for u in User.objects.all()}
+        result = {u.UID: u for u in User.objects.all()}
 
     def getName(self):
         return self.name
@@ -36,8 +36,8 @@ class User(models.Model):
 
 class Attendance(models.Model):
     completed = models.BooleanField()
-    timestamp = model.TextField()
-    users = model.ManyToManyField(User)
+    timestamp = models.TextField()
+    users = models.ManyToManyField(User)
 
     @staticmethod
     def getAllAttendances():
