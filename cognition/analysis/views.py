@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 from threading import Thread
 from queue import Queue
 from concurrent.futures import ThreadPoolExecutor
-import API
+from .API import addPersonFace, verify, createPerson, detectFace
 # Create your views here.
 
 
@@ -69,10 +69,10 @@ def takeAttendance(files):
     attendance.save()
     users = User.getAllUsers()
     for f in files:
-        fid = API.detectFace(f)
+        fid = detectFace(f)
         for u in users:
             if not attendance.hasTaken(users[u]):
-                if API.verify(fid, u):
+                if verify(fid, u):
                     attendance.addStudent(users[u])
                     break
     attendance.complete()
@@ -95,26 +95,28 @@ def viewHistory(request):
 @csrf_exempt
 def submitAttendance(request):
     if request.method == "POST":
-        number = int(request.get("size"))
+        number = int(request.POST.get("size"))
         files = []
         for i in range(number):
             files.append(request.FILES["file{}".format(i)])
         executor.submit(takeAttendance, files)
         return HttpResponse(200)
 
-
+@csrf_exempt
 def addUser(request):
     if request.method == "POST":
-        userName = request.get("name")
+        userName = request.POST.get("name")
         face = request.FILES["face"]
-        ID = API.createPerson(userName)
+        ID = createPerson(userName)
+        print("user created")
         temp = User()
         temp.ID = ID
         temp.save()
-        API.addPersonFace(ID, face)
+        addPersonFace(ID, face)
+        print("user face added")
         return HttpResponse(200)
     else:
-        return render(request, "addUser.html")
+        return render(request, "analysis/addUser.html")
 
 
 def viewAttendance(request):
