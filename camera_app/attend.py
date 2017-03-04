@@ -42,16 +42,19 @@ def storeImgFunct( img, timeStamp ):
 
 def storeMultiFunct( dir, imgs, timeStamp):
 ## This function store the faces with timeStamp
+    file_names = []
 
     for idx, img in enumerate(imgs):
 
         fm = dir + "/ppl_" + str(idx) + ".png"
+        
+        file_names.append( fm )
 
         cv2.imwrite( fm, img )
 
         print("Image stored in " + fm )
 
-        return
+    return file_names
 
 def postFunct( img , file_name):
 ## This function send image to server for emotion analysis
@@ -72,17 +75,19 @@ def postFunct( img , file_name):
 
 def postMultFunct( imgs , file_names ):
 ## This function send images to server for emotion analysis
-    
+
+    sending_files = []
+
     if (imgs.count() != file_names.count() ):
         print("image count and file_name count mismatch")
     
     for fm in file_names:
-        files.append( 'file', open( fm, 'rb') )
+        sending_files.append( 'file', open( fm, 'rb') )
 
-    print( "sending out these files", files )
+    print( "sending out these files", sending_files )
 
     #Send out the post request
-    server_res = requests.post(_img_url, files=files, size=len(file_name) )
+    server_res = requests.post(_img_url, files=sending_files, size=len(file_names) )
     
     print("Sending POST request ................... ")
     
@@ -90,7 +95,6 @@ def postMultFunct( imgs , file_names ):
         print("Good")
     else:
         raise Exception
-    
     return
 
 
@@ -159,11 +163,11 @@ while True:
         except Exception:
             print( "Fail to create directory" );
 
-        storeMultiFunct( path, ppl_faces, str( datetime.datetime.now() ) )
+        files = storeMultiFunct( path, ppl_faces, str( datetime.datetime.now() ) )
         
         try:
             #Send out the image to server
-            postMultFunct(img, file_name)
+            postMultFunct( ppl_faces , files)
         except Exception as e:
             print("Http post exception ... ")
 
