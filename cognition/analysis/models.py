@@ -4,7 +4,7 @@ from django.db import models
 
 class Record(models.Model):
 
-    time = models.TimeField(auto_now_add=True)
+    time = models.DateTimeField(auto_now_add=True)
     value = models.IntegerField()
 
     @staticmethod
