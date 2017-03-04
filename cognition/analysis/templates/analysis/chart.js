@@ -2,6 +2,9 @@
 
 $(function () {
 
+    $("#dateInput").show();
+    $("#chart").show();
+
     var records = [];
     var chart = $('#chart');
     var startTime;
@@ -23,12 +26,15 @@ $(function () {
     });
 
 
-    $("#line").click(function () {
-
+    $("#chartBtn").click(function () {
+        $("#dateInput").show();
+        $("#chart").show();
     });
 
 
-    $("#area").click(function () {
+    $("#addStudentBtn").click(function () {
+        $("#dateInput").hide();
+        $("#chart").hide();
 
     });
 
@@ -63,19 +69,19 @@ $(function () {
                 label: "Confusion",
                 values: [{
                     time: Math.round(new Date().getTime() / 1000),
-                    y: 1020
+                    y: 100
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: 1080
+                    y: 80
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: 500
+                    y: 50
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: 140
+                    y: 40
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: 340
+                    y: 30
                 }]
             }
         ];
@@ -113,8 +119,8 @@ $(function () {
         }
 
         dtPoints.push({
-            time: new Date().getMilliseconds(),
-            y: 200
+            time: new Date().getTime(),
+            y: 90
         });
 
         // plot the chart
@@ -123,7 +129,7 @@ $(function () {
         for (var j = 0; j < dtPoints.length; j++) {
             setTimeout(function () {
                 $('#chart').push(dtPoints[j]);
-                //$('#chart').redraw();
+                $('#chart').redraw();
             }, delayMillis);
         }
 
