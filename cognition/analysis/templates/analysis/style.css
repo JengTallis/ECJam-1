@@ -1,6 +1,6 @@
 * {
     font-size: 16;
-    color: black;
+    color: white;
     box-sizing: border-box;
     font-family: sans-serif;
     line-height: 150%;
@@ -104,6 +104,11 @@ h1 {
 
 .hidden {
     display: none;
+}
+
+.boldText {
+    color: white;
+    font-weight: bold;
 }
 
 .container {

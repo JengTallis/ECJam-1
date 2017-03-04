@@ -4,6 +4,7 @@ $(function () {
 
     $("#dateInput").show();
     $("#chart").show();
+    $("#add-student").hide();
 
     var records = [];
     var chart = $('#chart');
@@ -21,7 +22,7 @@ $(function () {
         var min2 = $("#min2").val();
         startTime = date + "T" + hour1 + ":" + min1 + ":00";
         endTime = date + "T" + hour2 + ":" + min2 + ":00";
-        //getChartData();
+        getChartData();
         drawChart();
     });
 
@@ -29,13 +30,35 @@ $(function () {
     $("#chartBtn").click(function () {
         $("#dateInput").show();
         $("#chart").show();
+        $("#add-student").hide();
     });
 
 
     $("#addStudentBtn").click(function () {
         $("#dateInput").hide();
         $("#chart").hide();
+        $("#add-student").show();
 
+    });
+
+    $("#addSubmit").click(function () {
+        $('.input').val('');
+        $.ajax({
+            url: "/student",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                "stunum": $('#stunum-input').val(),
+                "givenname": $('#gname-input').val(),
+                "familyname": $('#fname-input').val(),
+                "photo": $('#photo-input').val()
+            }),
+            success: function (data) {
+                let resMsg = data.msg;
+                snackbarMessage(resMsg);
+            }
+        });
     });
 
 
@@ -60,9 +83,11 @@ $(function () {
 
     // initial chart
     function initChart() {
+        var t = new Date();
+        console.log(t);
+        t.getTime();
+        console.log(t.getTime());
 
-        var test = Math.round(new Date(startTime).getTime() / 1000);
-        console.log(test);
         var chartData = [
 
             {
@@ -139,7 +164,7 @@ $(function () {
     var snackbar = document.getElementById("snackbar");
 
     // toast a snackbar message
-    //param message is the message to be shown
+    // param message is the message to be shown
     function snackbarMessage(message) {
         snackbar.innerHTML = message;
         snackbar.className = "show";
