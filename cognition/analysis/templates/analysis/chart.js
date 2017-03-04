@@ -49,9 +49,7 @@ $(function () {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({
-                "stunum": $('#stunum-input').val(),
-                "givenname": $('#gname-input').val(),
-                "familyname": $('#fname-input').val(),
+                "name": $('#name-input').val(),
                 "photo": $('#photo-input').val()
             }),
             success: function (data) {
