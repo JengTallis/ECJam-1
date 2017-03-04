@@ -3,7 +3,7 @@
 $(function () {
 
     var records = [];
-    var chart;
+    var chart = $('#chart');
     var startTime;
     var endTime;
 
@@ -20,6 +20,16 @@ $(function () {
         endTime = date + "T" + hour2 + ":" + min2 + ":00";
         //getChartData();
         drawChart();
+    });
+
+
+    $("#line").click(function () {
+
+    });
+
+
+    $("#area").click(function () {
+
     });
 
 

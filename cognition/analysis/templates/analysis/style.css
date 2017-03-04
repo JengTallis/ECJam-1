@@ -4,39 +4,129 @@
     box-sizing: border-box;
     font-family: sans-serif;
     line-height: 150%;
-    background-image: ;
+}
+
+#chart {
+    margin-left: 5%;
+    width: 90%;
+    height: 300px;
+}
+
+
+/* Dropdown Button */
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+
+/* Dropdown Content (Hidden by Default) */
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+}
+
+
+/* Links inside the dropdown */
+
+.dropdown-content button {
+    font-size: 14px;
+    color: black;
+    background-color: white;
+    padding: 12px 16px;
+    width: 100%;
+    text-decoration: none;
+    display: block;
+}
+
+
+/* Change color of dropdown links on hover */
+
+.dropdown-content button:hover {
+    background-color: #efebeb
+}
+
+
+/* Show the dropdown menu on hover */
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+
+.dropdown:hover .dropbtn {
+    background-color: #3e8e41;
+}
+
+header {
+    background-color: #f8c22b;
+    width: 100%;
+    color: white;
+    padding-left: 5%;
+    padding-top: 0.02%;
+    padding-bottom: 0.01%;
 }
 
 h1 {
     font-size: 30px;
     color: aliceblue;
-    font-family: cursive;
+    font-family: sans-serif;
+    text-align: center;
 }
 
-.jumbotron {
-    background-image: ;
-    height: 100px;
-}
-
-.container {
-    width: 90%;
-    margin: 0 auto;
-    overflow: auto;
-    padding: 10px;
-    background-color: rgba(204, 240, 239, 0.57);
+.btn {
+    background-color: #f5c43d;
+    font-size: 20px;
+    padding-left: 3%;
+    padding-right: 3%;
+    font-family: sans-serif;
+    color: white;
+    border: 2px;
+    border-radius: 2%;
+    border-style: dotted;
 }
 
 .hidden {
     display: none;
 }
 
-.block {
-    color: gray;
-    margin: 1%;
-    border: 2px solid skyblue;
-    float: left;
-    clear: both;
+.container {
+    width: 100%;
+    margin: 0 auto;
+    overflow: auto;
+    padding: 10px;
+}
+
+p {
+    color: white;
+    padding-left: 10px;
+}
+
+.box {
+    margin-top: 4%;
+    padding-bottom: 2%;
+    background-color: rgba(157, 188, 188, 0.65);
     width: 90%;
+    border-radius: 10px;
+    align-content: center;
+    overflow-y: scroll;
+    max-height: 555px;
 }
 
 .ui-state-default {
