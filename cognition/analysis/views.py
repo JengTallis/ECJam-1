@@ -6,12 +6,15 @@ import urllib.request
 import requests
 from .models import Record
 from django.views.decorators.csrf import csrf_exempt
-
+from threading import Thread
+from queue import Queue
+from concurrent.futures import ThreadPoolExecutor
 # Create your views here.
 
 
 URL = "https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize"
 KEY = "04578e189b6f45c0842acf276495e256"
+executor = ThreadPoolExecutor()
 
 
 def process(file):
@@ -21,7 +24,6 @@ def process(file):
     result = None
     response = requests.request("post", URL, json=None, params=None,
                                 data=file, headers=header)
-    print(response)
     code = response.status_code
     if code == 429:
         print("Message: {}".format(response.json()['error']['message']))
@@ -42,6 +44,16 @@ def process(file):
     return result
 
 
+def worker(data):
+    result = process(data)
+    if result:
+        value = compute(result)
+        print(value)
+        r = Record()
+        r.value = value
+        r.save()
+
+
 def compute(value):
     for face in value:
         scores = face["scores"]
@@ -55,16 +67,8 @@ def submitPicture(request):
     if request.method == "POST":
         file = request.FILES["file"]
         data = file.read()
-        result = process(data)
-        print(result)
-        if result:
-            value = compute(result)
-            print(value)
-            r = Record()
-            r.value = value
-            r.save()
-            return HttpResponse(status=200)
-    return HttpResponse(404)
+        executor.submit(worker, data)
+        return HttpResponse(200)
 
 
 def viewHistory(request):
