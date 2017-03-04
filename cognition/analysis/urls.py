@@ -7,5 +7,4 @@ urlpatterns = [
     url(r"postAttendance", submitAttendance, name="submitAttendance"),
     url(r"attendance", viewAttendance, name="viewAttendance"),
     url(r"add", addUser, name="addUser")
-
 ]

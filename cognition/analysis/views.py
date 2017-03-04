@@ -88,8 +88,11 @@ def submitPicture(request):
 
 
 def viewHistory(request):
-    records = Record.getAllRecords()
-    return JsonResponse({"records": records})
+    if request.method == "POST":
+        records = Record.getAllRecords()
+        return JsonResponse({"records": records})
+    else:
+        return render(request, "analysis/index.html")
 
 
 @csrf_exempt
@@ -101,6 +104,7 @@ def submitAttendance(request):
             files.append(request.FILES["file{}".format(i)])
         executor.submit(takeAttendance, files)
         return HttpResponse(200)
+
 
 @csrf_exempt
 def addUser(request):
@@ -116,7 +120,7 @@ def addUser(request):
         print("user face added")
         return HttpResponse(200)
     else:
-        return render(request, "analysis/addUser.html")
+        return render(request, "analysis/index.html")
 
 
 def viewAttendance(request):
