@@ -41,8 +41,8 @@ $(function () {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({
-                "name": ("#name-input").val(),
-                "photo": ("#photo-input").val()
+                "name": $("#name-input").val(),
+                "photo": $("#photo-input").val()
             }),
             success: function (data) {
                 records = data.records;
