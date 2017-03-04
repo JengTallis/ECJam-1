@@ -4,6 +4,7 @@ $(function () {
 
     $("#dateInput").show();
     $("#chart").show();
+    $("#add-student").hide();
 
     var records = [];
     var chart = $('#chart');
@@ -29,12 +30,17 @@ $(function () {
     $("#chartBtn").click(function () {
         $("#dateInput").show();
         $("#chart").show();
+        $("#add-student").hide();
     });
-
 
     $("#addStudentBtn").click(function () {
         $("#dateInput").hide();
         $("#chart").hide();
+        $("#add-student").show();
+    });
+
+
+    $("#submitStudent").click(function () {
         $.ajax({
             url: "/add",
             type: "POST",
@@ -49,8 +55,6 @@ $(function () {
                 snackbarMessage("getData!");
             }
         });
-
-
     });
 
 
