@@ -16,19 +16,22 @@ class Record(models.Model):
 
 
 class User(models.Model):
-    image = models.ImageField()
+    ID = models.TextField()
     name = models.TextField()
 
     @staticmethod
-    def addUser(image, name):
+    def addUser(ID, name):
         user = User()
-        user.image = image
+        user.ID = ID
         user.name = name
         user.save()
 
     @staticmethod
     def getAllUsers():
-        result = {u.name: u.image for u in User.objects.all()}
+        result = {u.ID: u for u in User.objects.all()}
+
+    def getName(self):
+        return self.name
 
 
 class Attendance(models.Model):
@@ -37,7 +40,7 @@ class Attendance(models.Model):
     users = model.ManyToManyField(User)
 
     @staticmethod
-    def getAllAttendance():
+    def getAllAttendances():
         return [r.timestamp for r in Attendance.objects.all()]
 
     @staticmethod
@@ -49,8 +52,26 @@ class Attendance(models.Model):
         self.save()
 
     def getTakenStudents(self):
-        return self.users_set.all()
+        return [u.getName() for u in self.users_set.all()]
+
+    def getUntakenStudents(self):
+        untakens = User.objects.all() - self.users_set.all()
+        result = [u.getName() for u in untakens]
+        return result
 
     def addStudent(self, s):
         self.users_set.add(s)
         self.save()
+
+    def hasTaken(self, user):
+        return user in self.users_set.all()
+
+    def hasCompleted(self):
+        return self.completed
+
+
+class Group(models.Model):
+    groupID = models.TextField()
+
+    def getID(self):
+        return self.groupID

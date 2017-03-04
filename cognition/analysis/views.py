@@ -4,11 +4,12 @@ from django.http import JsonResponse
 from threading import Thread
 import urllib.request
 import requests
-from .models import Record
+from .models import Record, User, Attendance
 from django.views.decorators.csrf import csrf_exempt
 from threading import Thread
 from queue import Queue
 from concurrent.futures import ThreadPoolExecutor
+import API
 # Create your views here.
 
 
@@ -62,6 +63,21 @@ def compute(value):
     return result
 
 
+def takeAttendance(files):
+    attendance = Attendance()
+    attendance.completed = False
+    attendance.save()
+    users = User.getAllUsers()
+    for f in files:
+        fid = API.detectFace(f)
+        for u in users:
+            if not attendance.hasTaken(users[u]):
+                if API.verify(fid, u):
+                    attendance.addStudent(users[u])
+                    break
+    attendance.complete()
+
+
 @csrf_exempt
 def submitPicture(request):
     if request.method == "POST":
@@ -85,3 +101,33 @@ def submitAttendance(request):
             files.append(request.FILES["file{}".format(i)])
         executor.submit(takeAttendance, files)
         return HttpResponse(200)
+
+
+def addUser(request):
+    if request.method == "POST":
+        userName = request.get("name")
+        face = request.FILES["face"]
+        ID = API.createPerson(userName)
+        temp = User()
+        temp.ID = ID
+        temp.save()
+        API.addPersonFace(ID, face)
+        return HttpResponse(200)
+    else:
+        return render(request, "addUser.html")
+
+
+def viewAttendance(request):
+    if request.method == "GET":
+        return render(request, "viewAttendance.html",
+                      {"attendances": Attendance.getAllAttendances()})
+    else:
+        time = request.POST.get("time")
+        a = Attendance.getByTimestamp(time)
+        if a.hasCompleted():
+            taken = a.getTakenStudents()
+            untaken = a.getUntakenStudents()
+            return JsonResponse({"completed": True, "taken": taken,
+                                 "untaken": untaken})
+        else:
+            return JsonResponse({"completed": False})
