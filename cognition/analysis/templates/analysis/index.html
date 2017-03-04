@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+
+<html>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>InformaEye</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="./bower_components/epoch/dist/css/epoch.min.css">
+
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+
+    <script src=" ./bower_components/d3/d3.min.js "></script>
+    <script src="./bower_components/epoch/dist/js/epoch.min.js "></script>
+    <script src="./chart.js "></script>
+</head>
+
+<body class="epoch-theme-dark">
+
+
+    <h1>InformaEye</h1>
+    <header>
+        <h1>InformaEye</h1>
+
+
+    </header>
+
+
+    <div class="container box">
+        <div class="dropdown">
+            <button class="dropbtn" id="line">Line chart</button>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn" id="area">Area chart</button>
+        </div>
+
+        <div id="" class="container">
+            <input type="date" id="date" min="2017-03-04">
+            <input type="number" id="hr1" min="0" max="23" placeholder="hr">
+            <input type="number" id="min1" min="0" max="59" placeholder="min">
+            <span> to </span>
+            <input type="number" id="hr2" min="0" max="23" placeholder="hr">
+            <input type="number" id="min2" min="0" max="59" placeholder="min">
+            <button class="" id="submitTime">View</button>
+        </div>
+
+
+    </div>
+
+    <div id="chart" class="epoch category10">
+
+    </div>
+
+    <div id="snackbar">snackbar</div>
+
+</body>
+
+</html>
