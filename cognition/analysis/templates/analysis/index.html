@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<html>
+
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>InformaEye</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" type="text/css" href="./bower_components/epoch/dist/css/epoch.min.css">
+
+    <script src="http://code.jquery.com/jquery-1.8.2.js"></script>
+    <script src="http://code.jquery.com/ui/1.9.1/jquery-ui.js"></script>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+
+    <script src=" ./bower_components/d3/d3.min.js "></script>
+    <script src="./bower_components/epoch/dist/js/epoch.min.js "></script>
+    <script src="./chart.js "></script>
+</head>
+
+<body style="margin-left:50px;margin-top:50px; ">
+
+    <div class="jumbotron">
+        <h1>InformaEye</h1>
+    </div>
+    <div id="" class="container">
+        <input type="date" name="date" min="2017-03-04">
+        <input type="number" name="hr" min="0" max="23" placeholder="hr">
+        <input type="number" name="min" min="0" max="59" placeholder="min">
+        <button class="" id="submitTime">View</button>
+    </div>
+
+
+    <div id="chart" style="width: 600px; height: 200px">
+
+    </div>
+
+    <div id="snackbar">snackbar</div>
+
+</body>
+
+</html>
