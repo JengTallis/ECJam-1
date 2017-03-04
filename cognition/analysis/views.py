@@ -68,8 +68,13 @@ def takeAttendance(files):
     attendance.completed = False
     attendance.save()
     users = User.getAllUsers()
+    fids = []
+    futures = []
     for f in files:
-        fid = detectFace(f)
+        futures.append(executor.submit(detectFace, f))
+    for f in futures:
+        fids.append(f.result())
+    for fid in fids:
         for u in users:
             if not attendance.hasTaken(users[u]):
                 if verify(fid, u):

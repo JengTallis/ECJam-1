@@ -96,16 +96,22 @@ def verify(fid, pid, gid=GROUP_ID):
 
 
 def algorithm(method, url, body, headers):
-    try:
-        conn = http.client.HTTPSConnection(URL)
-        conn.request(method, url, body, headers)
-        response = conn.getresponse()
-        data = response.read()
-        print(data)
-        conn.close()
-        return data
-    except Exception as e:
-        print(e)
+    repeat = 0
+    while repeat != 3:
+        try:
+            conn = http.client.HTTPSConnection(URL)
+            conn.request(method, url, body, headers)
+            response = conn.getresponse()
+            data = response.read()
+            print(data)
+            if "error" in data:
+                repeat += 1
+            else:
+                return data
+            finally:
+                conn.close()
+        except Exception as e:
+            print(e)
 
 
 def main(argv):
