@@ -21,23 +21,40 @@
     <script src="./chart.js "></script>
 </head>
 
-<body class="epoch-theme-dark" style="margin-left:50px;margin-top:50px">
+<body class="epoch-theme-dark">
 
-    <div class="jumbotron">
+
+    <h1>InformaEye</h1>
+    <header>
         <h1>InformaEye</h1>
-    </div>
-    <div id="" class="container">
-        <input type="date" id="date" min="2017-03-04">
-        <input type="number" id="hr1" min="0" max="23" placeholder="hr">
-        <input type="number" id="min1" min="0" max="59" placeholder="min">
-        <span> to </span>
-        <input type="number" id="hr2" min="0" max="23" placeholder="hr">
-        <input type="number" id="min2" min="0" max="59" placeholder="min">
-        <button class="" id="submitTime">View</button>
-    </div>
 
 
-    <div id="chart" class="epoch category10" style="width: 780px; height: 200px">
+    </header>
+
+
+    <div class="container box">
+        <div class="dropdown">
+            <button class="dropbtn" id="line">Line chart</button>
+        </div>
+
+        <div class="dropdown">
+            <button class="dropbtn" id="area">Area chart</button>
+        </div>
+
+        <div id="" class="container">
+            <input type="date" id="date" min="2017-03-04">
+            <input type="number" id="hr1" min="0" max="23" placeholder="hr">
+            <input type="number" id="min1" min="0" max="59" placeholder="min">
+            <span> to </span>
+            <input type="number" id="hr2" min="0" max="23" placeholder="hr">
+            <input type="number" id="min2" min="0" max="59" placeholder="min">
+            <button class="" id="submitTime">View</button>
+        </div>
+
+
+    </div>
+
+    <div id="chart" class="epoch category10">
 
     </div>
 
