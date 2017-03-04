@@ -50,19 +50,28 @@ def worker(data):
     if result:
         value = compute(result)
         print(value)
-        r = Record()
-        r.value = value
-        r.save()
+        Record.addRecord(value)
 
 
 def compute(value):
-    for face in value:
-        scores = face["scores"]
-        break
     result = sum(sum(face["scores"].values()) for face in value)
     return result
 
 
+def verify(v):
+    return True
+
+
+def alert(request):
+    if request.method == "GET":
+        v = Record.getLatest()
+        if verify(v):
+            return HttpResponse(status=202)
+        else:
+            return HttpResponse(status=203)
+
+
+"""
 def takeAttendance(files):
     attendance = Attendance()
     attendance.completed = False
@@ -81,6 +90,7 @@ def takeAttendance(files):
                     attendance.addStudent(users[u])
                     break
     attendance.complete()
+"""
 
 
 @csrf_exempt
@@ -94,12 +104,15 @@ def submitPicture(request):
 
 def viewHistory(request):
     if request.method == "POST":
-        records = Record.getAllRecords()
+        start = request.POST.get("start")
+        end = request.POST.get("end")
+        records = Record.getRecords(start, end)
         return JsonResponse({"records": records})
     else:
         return render(request, "analysis/index.html")
 
 
+"""
 @csrf_exempt
 def submitAttendance(request):
     if request.method == "POST":
@@ -142,3 +155,4 @@ def viewAttendance(request):
                                  "untaken": untaken})
         else:
             return JsonResponse({"completed": False})
+"""

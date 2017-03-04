@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from datetime import datetime
 # Create your models here.
 
 
@@ -7,12 +8,42 @@ class Record(models.Model):
 
     time = models.DateTimeField(default=timezone.now)
     value = models.IntegerField()
+    _latest = None
 
     @staticmethod
     def getAllRecords():
         result = [(r.time.astimezone(), r.value)
                   for r in Record.objects.all()]
         return result
+
+    @staticmethod
+    def getRecords(begin, end):
+        begin = Record._parse(begin)
+        end = Record._parse(end)
+        result = [(r.time.astimezone(), r.value) for r in
+                  Record.objects.filter(time__range=[begin, end])]
+
+    @staticmethod
+    def _parse(s):
+        date = s.split('T')
+        ymd = date[0].split('-')
+        hms = date[1].split(':')
+        for i in ymd:
+            i = int(i)
+        for j in hms:
+            j = int(j)
+        return datetime(ymd[0], ymd[1], ymd[2], hms[0], hms[1], hms[2])
+
+    @staticmethod
+    def addRecord(value):
+        r = Record()
+        r.value = value
+        r.save()
+        _latest = r
+
+    @staticmethod
+    def getLatest():
+        return _latest.value
 
 
 class User(models.Model):
