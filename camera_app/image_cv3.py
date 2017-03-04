@@ -1,25 +1,26 @@
-#For opencv face recognition
+# For opencv face recognition
 import cv2
 import sys
 
-#For Mircosoft emotion API
+# For Mircosoft emotion API
 import http.client, urllib.request, urllib.parse, urllib.error, base64
 import requests
 import numpy as np
 import operator
 
-#File name variable
+# File name variable
 pathToFileInDisk = sys.argv[1]
 
-#Emotion API Variables
+# Emotion API Variables
 _url = 'https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize'
 _key = '04578e189b6f45c0842acf276495e256'
 _maxNumRetries = 10
 
-#Emotion API process request function
+# Emotion API process request function
+
+
 def processRequest( json, data, headers, params ):
-    
-    """
+        """
         Parameters:
         json: Used when processing images from its URL. See API Documentation
         data: Used when processing image read from disk. See API Documentation
@@ -61,7 +62,7 @@ def processRequest( json, data, headers, params ):
     
     return result
 
-#Emotion API Render function
+# Emotion API Render function
 def renderResultOnImage( result, img ):
     
     """Display the obtained results onto the input image"""
@@ -79,16 +80,16 @@ def renderResultOnImage( result, img ):
         textToWrite = "%s" % ( currEmotion )
         cv2.putText( img, textToWrite, (faceRectangle['left'],faceRectangle['top']-10), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0,255,0), 1 )
 
-#Read in image
+# Read in image
 img = cv2.imread( pathToFileInDisk )
 
-#Load raw image file into memory
+# Load raw image file into memory
 with open( pathToFileInDisk, 'rb' ) as f:
     data = f.read()
 
 print(type(data))
 
-#Emotion API headers
+# Emotion API headers
 headers = dict()
 headers['Ocp-Apim-Subscription-Key'] = _key
 headers['Content-Type'] = 'application/octet-stream'
@@ -96,24 +97,24 @@ headers['Content-Type'] = 'application/octet-stream'
 json = None
 params = None
 
-#Send out the request
+# Send out the request
 result = processRequest( json, data, headers, params )
 
 if result is not None:
-    # Load the original image from disk
-    data8uint = np.fromstring( data, np.uint8 ) # Convert string to an unsigned int array
+    #  Load the original image from disk
+    data8uint = np.fromstring( data, np.uint8 ) #  Convert string to an unsigned int array
     disk_img = cv2.cvtColor( cv2.imdecode( data8uint, cv2.IMREAD_COLOR ), cv2.COLOR_BGR2RGB )
     
-    #Render the result on the image
+    # Render the result on the image
     renderResultOnImage( result, img )
     print(result)
 else:
     print("NULL result")
 
-# Display the resulting frame
+#  Display the resulting frame
 cv2.imshow('image', img)
 
 cv2.waitKey(-1)
 
-# When everything is done, release the capture
+#  When everything is done, release the capture
 cv2.destroyAllWindows()

@@ -10,6 +10,6 @@ class Record(models.Model):
 
     @staticmethod
     def getAllRecords():
-        result = [(r.value, r.time.astimezone())
+        result = [(r.time.astimezone(), r.value)
                   for r in Record.objects.all()]
         return result

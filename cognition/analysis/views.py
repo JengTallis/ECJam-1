@@ -74,4 +74,3 @@ def submitPicture(request):
 def viewHistory(request):
     records = Record.getAllRecords()
     return JsonResponse({"records": records})
-
