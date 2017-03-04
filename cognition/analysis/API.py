@@ -21,7 +21,7 @@ def createGroup(gid=GROUP_ID):
         "userData": ""
     }
     url = "/face/v1.0/persongroups/{}?{}".format(gid, params)
-    algorithm("PUT", url, json.dumps(body), headers)
+    algorithm("PUT", url, json.dumps(body).encode("utf8"), headers)
 
 
 def detectFace(file):
@@ -98,20 +98,19 @@ def verify(fid, pid, gid=GROUP_ID):
 def algorithm(method, url, body, headers):
     repeat = 0
     while repeat != 3:
-        try:
+#        try:
             conn = http.client.HTTPSConnection(URL)
             conn.request(method, url, body, headers)
             response = conn.getresponse()
             data = response.read()
             print(data)
+            conn.close()
             if "error" in data:
                 repeat += 1
             else:
                 return data
-            finally:
-                conn.close()
-        except Exception as e:
-            print(e)
+#        except Exception as e:
+#            print(e)
 
 
 def main(argv):

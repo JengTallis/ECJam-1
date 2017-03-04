@@ -111,11 +111,11 @@ def submitAttendance(request):
         return HttpResponse(200)
 
 
-@csrf_exempt
 def addUser(request):
     if request.method == "POST":
         userName = request.POST.get("name")
-        face = request.FILES["face"]
+        print(request.FILES)
+        face = request.FILES["photo"]
         ID = createPerson(userName)
         print("user created")
         temp = User()
@@ -125,7 +125,7 @@ def addUser(request):
         print("user face added")
         return HttpResponse(200)
     else:
-        return render(request, "analysis/index.html")
+        return render(request, "analysis/addUser.html")
 
 
 def viewAttendance(request):
