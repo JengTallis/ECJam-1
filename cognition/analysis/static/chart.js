@@ -35,6 +35,21 @@ $(function () {
     $("#addStudentBtn").click(function () {
         $("#dateInput").hide();
         $("#chart").hide();
+        $.ajax({
+            url: "/add",
+            type: "POST",
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            data: JSON.stringify({
+                "name": ("#name-input").val(),
+                "photo": ("#photo-input").val()
+            }),
+            success: function (data) {
+                records = data.records;
+                snackbarMessage("getData!");
+            }
+        });
+
 
     });
 
