@@ -75,3 +75,13 @@ def viewHistory(request):
     records = Record.getAllRecords()
     return JsonResponse({"records": records})
 
+
+@csrf_exempt
+def submitAttendance(request):
+    if request.method == "POST":
+        number = int(request.get("size"))
+        files = []
+        for i in range(number):
+            files.append(request.FILES["file{}".format(i)])
+        executor.submit(takeAttendance, files)
+        return HttpResponse(200)
