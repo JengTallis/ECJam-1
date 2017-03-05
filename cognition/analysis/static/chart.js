@@ -61,7 +61,7 @@ $(function () {
             type: "POST",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: {
+            data: JSON.stringify({
                 "srart": {
                     "date": date,
                     "hour": hour1,
@@ -72,7 +72,7 @@ $(function () {
                     "hour": hour2,
                     "minute": min2
                 }
-            },
+            }),
             success: function (data) {
                 records = data.records;
                 snackbarMessage("getData!");
