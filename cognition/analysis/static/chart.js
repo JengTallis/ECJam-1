@@ -71,6 +71,8 @@ $(function () {
 
                 records = data.records;
                 snackbarMessage("getData!");
+
+                alert(  JSON.stringify(records) );
                 
             }
         });
@@ -79,8 +81,6 @@ $(function () {
 
     // initial chart
     function initChart() {
-        alert( new Date().getTime() )
-
         var chartData = [
 
             {
@@ -133,34 +133,41 @@ $(function () {
         var dtPoints = [];
         for (var i = 0; i < records.length; i++) {
 
-            var year = res.slice(0, 4);
-            var month = res.slice(5, 7);
-            var day = res.slice(8, 10);
-            var hours = res.slice(11, 13);
-            var minutes = res.slice(14, 16);
-            var seconds = res.slice(17, 18);
+            //record string from server 
+            var t_str = JSON.stringify(records[i]);
 
-            var d = new Date(year, month, day, hours, minutes, seconds, milliseconds);
+            //parse string to date type
+            var year = t_str.slice(2, 6);
+            var month = t_str.slice(7, 9);
+            var day = t_str.slice(10, 12);
+            var hours = t_str.slice(13, 15);
+            var minutes = t_str.slice(16, 18);
+            var seconds = t_str.slice(19, 20);
+
+            //construct date object
+            var d = new Date(year, month, day, hours, minutes, seconds, 10);
+            
+            //convert to long time format 
             var long_time = Math.round( d.getTime() / 1000 ); 
-            alert(long_time);
+            
+            //alert("long time: " + long_time);
 
+            //build a data point 
             var point = {
                 time: long_time,
                 y: records[i][1]
             };
+
+            //push a point onto the array
             dtPoints.push(point);
         }
 
-        dtPoints.push({
-            time: new Date().getTime(),
-            y: 90
-        });
-
         // plot the chart
-        var delayMillis = 1000; //1 second
+        var delayMillis = 10; //1 second
 
         for (var j = 0; j < dtPoints.length; j++) {
             setTimeout(function () {
+
             	// This switches the class names...
     			var className = $('#chart').attr('class');
     			var newClassName = className === 'epoch category10' ? 'styles2' : 'epoch category10';
@@ -172,10 +179,12 @@ $(function () {
 
             }, delayMillis);
 
+            // This switches the class names...
             var className = $('#chart').attr('class');
 			var newClassName = className === 'styles1' ? 'epoch category10' : 'styles1';
 			$('#chart').removeClass(className)
 			$('#chart').addClass(newClassName);
+            
             chart.redraw();
         }
 
