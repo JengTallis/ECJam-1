@@ -8,13 +8,12 @@ $(function () {
 
     var records = [];
     var chart = $('#chart');
-    var startTime;
-    var endTime;
 
     initChart();
 
     // user click view
     $("#submitTime").click(function () {
+<<<<<<< HEAD
         var date = $("#date").val();
         var hour1 = $("#hr1").val();
         var min1 = $("#min1").val();
@@ -30,7 +29,7 @@ $(function () {
             "hour": hour2,
             "minute": min2
         };
-        // getChartData();
+        getChartData();
         drawChart();
     });
 
@@ -65,17 +64,29 @@ $(function () {
         });
     });
 
+    function getChartData() {
 
-    function getChartData(startTime, endTime) {
-
+        var date = $("#date").val();
+        var hour1 = $("#hr1").val();
+        var min1 = $("#min1").val();
+        var hour2 = $("#hr2").val();
+        var min2 = $("#min2").val();
         $.ajax({
             url: "",
             type: "POST",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({
-                "srart": startTime,
-                "end": endTime
+                "srart": {
+                    "date": date,
+                    "hour": hour1,
+                    "minute": min1
+                },
+                "end": {
+                    "date": date,
+                    "hour": hour2,
+                    "minute": min2
+                }
             }),
             success: function (data) {
                 records = data.records;
@@ -88,8 +99,6 @@ $(function () {
     // initial chart
     function initChart() {
 
-        var test = Math.round(new Date(startTime).getTime() / 1000);
-        console.log(test);
         var chartData = [
 
             {
