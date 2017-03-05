@@ -55,8 +55,13 @@ def worker(data):
 
 
 def compute(value):
-    result = sum(sum(face["scores"].values()) for face in value)
-    return result
+    return sum(singe(face["scores"]) for face in value) // len(value)
+
+
+def single(face):
+    return (face["anger"] + face["contempt"] +
+            face["sadness"] + face["disgust"] +
+            face["fear"] + face["surprise"]) * 100
 
 
 def verify(v):
