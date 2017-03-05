@@ -13,7 +13,6 @@ $(function () {
 
     // user click view
     $("#submitTime").click(function () {
-<<<<<<< HEAD
         var date = $("#date").val();
         var hour1 = $("#hr1").val();
         var min1 = $("#min1").val();
