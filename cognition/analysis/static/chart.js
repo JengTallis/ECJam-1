@@ -49,6 +49,7 @@ $(function () {
     });
 
     function getChartData() {
+
         $.ajax({
             url: "",
             type: "POST",
@@ -67,8 +68,10 @@ $(function () {
                 }
             }),
             success: function (data) {
+
                 records = data.records;
                 snackbarMessage("getData!");
+                
             }
         });
 
@@ -76,6 +79,7 @@ $(function () {
 
     // initial chart
     function initChart() {
+        alert( new Date().getTime() )
 
         var chartData = [
 
@@ -128,8 +132,20 @@ $(function () {
         // format data
         var dtPoints = [];
         for (var i = 0; i < records.length; i++) {
+
+            var year = res.slice(0, 4);
+            var month = res.slice(5, 7);
+            var day = res.slice(8, 10);
+            var hours = res.slice(11, 13);
+            var minutes = res.slice(14, 16);
+            var seconds = res.slice(17, 18);
+
+            var d = new Date(year, month, day, hours, minutes, seconds, milliseconds);
+            var long_time = Math.round( d.getTime() / 1000 ); 
+            alert(long_time);
+
             var point = {
-                time: records[i][0],
+                time: long_time,
                 y: records[i][1]
             };
             dtPoints.push(point);
