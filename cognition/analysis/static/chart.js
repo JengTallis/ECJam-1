@@ -55,7 +55,7 @@ $(function () {
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({
-                "srart": {
+                "start": {
                     "date": $("#date").val(),
                     "hour": $("#hr1").val(),
                     "minute": $("#min1").val()
