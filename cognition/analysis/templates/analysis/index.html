@@ -33,36 +33,35 @@
     </header>
 
     <div class="darkbox">
-            <div class="container ">
-        <div class="dropdownbox">
-            <button class="dropbtn" id="chartBtn">View chart</button>
+        <div class="container ">
+            <div class="dropdownbox">
+                <button class="dropbtn" id="chartBtn">View chart</button>
+            </div>
+
+            <div class="dropdown">
+                <button class="dropbtn" id="addStudentBtn">Add Student</button>
+            </div>
+
+            <div id="dateInput" class="container">
+                <input type="date" id="date" min="2017-03-04">
+                <input type="number" id="hr1" min="0" max="23" placeholder="hr">
+                <input type="number" id="min1" min="0" max="59" placeholder="min">
+                <span> to </span>
+                <input type="number" id="hr2" min="0" max="23" placeholder="hr">
+                <input type="number" id="min2" min="0" max="59" placeholder="min">
+                <button class="" id="submitTime">View</button>
+            </div>
+
+            <div id="add-student" class="container box">
+                <p class="boldText">Add Student</p>
+                <input class="input" type="text" name="name-input" id="name-input" placeholder="Student Name" required/>
+
+                <input type="file" id="photo-input" multiple="" />
+                <button id="submitStudent">Submit</button>
+
+            </div>
+
         </div>
-
-        <div class="dropdown">
-            <button class="dropbtn" id="addStudentBtn">Add Student</button>
-        </div>
-
-        <div id="dateInput" class="container">
-            <input type="date" id="date" min="2017-03-04">
-            <input type="number" id="hr1" min="0" max="23" placeholder="hr">
-            <input type="number" id="min1" min="0" max="59" placeholder="min">
-            <span> to </span>
-            <input type="number" id="hr2" min="0" max="23" placeholder="hr">
-            <input type="number" id="min2" min="0" max="59" placeholder="min">
-            <button class="" id="submitTime">View</button>
-        </div>
-
-        <div id="add-student" class="container box">
-            <p class="boldText">Add Student</p>
-            <input class="input" type="text" name="name-input" id="name-input" placeholder="Student Name" required/>
-
-            <input type="file" id="photo-input" multiple="" />
-            <button id="submitStudent">Submit</button>
-
-        </div>
-
-
-    </div>
     </div>
 
 

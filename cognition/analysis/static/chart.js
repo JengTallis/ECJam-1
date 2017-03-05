@@ -8,31 +8,16 @@ $(function () {
 
     var records = [];
     var chart = $('#chart');
-    var startTime;
-    var endTime;
 
     initChart();
 
     // user click view
     $("#submitTime").click(function () {
-        var date = $("#date").val();
-        var hour1 = $("#hr1").val();
-        var min1 = $("#min1").val();
-        var hour2 = $("#hr2").val();
-        var min2 = $("#min2").val();
-        startTime = {
-            "date": date,
-            "hour": hour1,
-            "minute": min1
-        };
-        endTime = {
-            "date": date,
-            "hour": hour2,
-            "minute": min2
-        };
-        getChartData(startTime, endTime);
+        getChartData();
         drawChart();
     });
+
+
 
 
     $("#chartBtn").click(function () {
@@ -64,20 +49,30 @@ $(function () {
             }
         });
     });
+    function getChartData() {
 
-
-    function getChartData(startTime, endTime) {
-        console.log(startTime);
-        console.log(endTime);
+        var date = $("#date").val();
+        var hour1 = $("#hr1").val();
+        var min1 = $("#min1").val();
+        var hour2 = $("#hr2").val();
+        var min2 = $("#min2").val();
         $.ajax({
             url: "",
             type: "POST",
             dataType: "json",
             contentType: "application/json; charset=utf-8",
-            data: JSON.stringify({
-                "srart": startTime,
-                "end": endTime
-            }),
+            data: {
+                "srart": {
+                    "date": date,
+                    "hour": hour1,
+                    "minute": min1
+                },
+                "end": {
+                    "date": date,
+                    "hour": hour2,
+                    "minute": min2
+                }
+            },
             success: function (data) {
                 records = data.records;
                 snackbarMessage("getData!");
