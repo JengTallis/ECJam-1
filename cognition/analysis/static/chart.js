@@ -169,21 +169,22 @@ $(function () {
             var seconds = t_str.slice(19, 20);
 
             //construct date object
-            var d = new Date(year, month, day, hours, minutes, seconds, 10);
-            
+            var d = new Date(year, month-1, day, hours, minutes, seconds, 10);
+            console.log(d);
             //convert to long time format 
             var long_time = Math.round( d.getTime() / 1000 ); 
             
             //build a data point 
             var point = {
-                time: long_time,
-                y: records[i][1]
+                time: Number(long_time),
+                y: Number(records[i][1])
             };
 
             //push a point onto the array
             dtPoints.push(point);
 
         }
+
         console.log(dtPoints);
         // plot the chart
         var delayMillis = 10; //1 second
