@@ -13,21 +13,6 @@ $(function () {
 
     // user click view
     $("#submitTime").click(function () {
-        var date = $("#date").val();
-        var hour1 = $("#hr1").val();
-        var min1 = $("#min1").val();
-        var hour2 = $("#hr2").val();
-        var min2 = $("#min2").val();
-        startTime = {
-            "date": date,
-            "hour": hour1,
-            "minute": min1
-        };
-        startTime = {
-            "date": date,
-            "hour": hour2,
-            "minute": min2
-        };
         getChartData();
         drawChart();
     });
