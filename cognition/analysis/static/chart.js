@@ -6,24 +6,15 @@ $(function () {
     $("#chart").show();
     $("#add-student").hide();
 
-<<<<<<< HEAD
-    //var chart = $('#chart');
-=======
     var records = [];
     var chart = $('#chart');
-
->>>>>>> end
 
     //initChart();
     //mock_Chart()
     // user click view
     $("#submitTime").click(function () {
-<<<<<<< HEAD
-        getChartData();
-=======
         //getChartData();
         drawChart();
->>>>>>> end
     });
 
 
@@ -100,7 +91,7 @@ $(function () {
                 label: "Confusion",
                 values: [{
                     time: Math.round(new Date().getTime() / 1000),
-                    y: 100
+                    y: 60
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
                     y: 80
@@ -109,34 +100,34 @@ $(function () {
                     y: 50
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: Math.random(seed)*100
+                    y: Math.random(seed)*10
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*10
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*10
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*10
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*10
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*10
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
                     y: Math.random(seed)*100
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: Math.random(seed)*100
+                    y: 75
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: Math.random(seed)*100
+                    y: 80
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: Math.random(seed)*100
-                }, {
-                    time: Math.round(new Date().getTime() / 1000),
-                    y: Math.random(seed)*100
-                }, {
-                    time: Math.round(new Date().getTime() / 1000),
-                    y: Math.random(seed)*100
-                }, {
-                    time: Math.round(new Date().getTime() / 1000),
-                    y: 100
-                }, {
-                    time: Math.round(new Date().getTime() / 1000),
-                    y: 100
-                }, {
-                    time: Math.round(new Date().getTime() / 1000),
-                    y: 100
+                    y: 70
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
                     y: 100
@@ -145,7 +136,7 @@ $(function () {
                     y: 50
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: 100
+                    y: 80
                 }]
             }
         ];
@@ -192,11 +183,9 @@ $(function () {
     }
 
     function drawChart(records) {
-        snackbarMessage("draw!");
-        var chart = $('#chart');
-        // format data
+        initChart();
+
         var dtPoints = [];
-        console.log(records.length);
         for (var i = 0; i < records.length; i++) {
 
             //record string from server 
