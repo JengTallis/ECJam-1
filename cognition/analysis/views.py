@@ -23,9 +23,9 @@ def process(file):
     header = dict()
     header["Ocp-Apim-Subscription-Key"] = KEY
     header["Content-Type"] = "application/octet-stream"
-    result = None
     response = requests.request("post", URL, json=None, params=None,
                                 data=file, headers=header)
+    print(response)
     code = response.status_code
     if code == 429:
         print("Message: {}".format(response.json()['error']['message']))
@@ -48,6 +48,7 @@ def process(file):
 
 def worker(data):
     result = process(data)
+    print(result)
     if result:
         value = compute(result)
         print(value)
@@ -55,13 +56,18 @@ def worker(data):
 
 
 def compute(value):
-    return sum(singe(face["scores"]) for face in value) // len(value)
+    s = 0
+    for face in value:
+        print(s)
+        s += single(face["scores"])
+    return s // len(value)
 
 
 def single(face):
-    return (face["anger"] + face["contempt"] +
-            face["sadness"] + face["disgust"] +
-            face["fear"] + face["surprise"]) * 100
+    value = (face["anger"] + face["contempt"] +
+             face["sadness"] + face["disgust"] +
+             face["fear"] + face["surprise"]) * 100
+    return value
 
 
 def verify(v):

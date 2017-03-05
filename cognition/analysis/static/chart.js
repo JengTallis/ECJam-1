@@ -6,15 +6,24 @@ $(function () {
     $("#chart").show();
     $("#add-student").hide();
 
+<<<<<<< HEAD
+    //var chart = $('#chart');
+=======
     var records = [];
     var chart = $('#chart');
 
-    initChart();
+>>>>>>> end
 
+    //initChart();
+    //mock_Chart()
     // user click view
     $("#submitTime").click(function () {
+<<<<<<< HEAD
         getChartData();
+=======
+        //getChartData();
         drawChart();
+>>>>>>> end
     });
 
 
@@ -42,13 +51,14 @@ $(function () {
                 "photo": $("#photo-input").val()
             }),
             success: function (data) {
-                records = data.records;
+                var records = data.records;
                 snackbarMessage("getData!");
             }
         });
     });
 
     function getChartData() {
+
         $.ajax({
             url: "",
             type: "POST",
@@ -67,8 +77,12 @@ $(function () {
                 }
             }),
             success: function (data) {
-                records = data.records;
+
+                var records = data.records;
                 snackbarMessage("getData!");
+                drawChart(records);
+                alert(  JSON.stringify(records) );
+                
             }
         });
 
@@ -77,6 +91,9 @@ $(function () {
     // initial chart
     function initChart() {
 
+        $('canvas').empty();
+        
+        var seed = Math.random()*1;
         var chartData = [
 
             {
@@ -92,10 +109,40 @@ $(function () {
                     y: 50
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: 40
+                    y: Math.random(seed)*100
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: 30
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 50
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
                     y: 100
@@ -117,51 +164,74 @@ $(function () {
                     return new Date(time * 1000).toString();
                 }
             }
+        });
+    }
+
+    function drawChart() {
+
+        initChart();
+
+        snackbarMessage("draw!");
+
+        chart = $('#chart').epoch({
+            type: 'time.area',
+            data: chartData,
+            axes: ['top', 'right', 'bottom', 'left'],
+            ticks: {
+                time: 10,
+                right: 5,
+                left: 5
+            },
+            tickFormats: {
+                time: function (d) {
+                    return new Date(time * 1000).toString();
+                }
+            }
 
         });
     }
 
-
-    function drawChart() {
+    function drawChart(records) {
         snackbarMessage("draw!");
-
+        var chart = $('#chart');
         // format data
         var dtPoints = [];
+        console.log(records.length);
         for (var i = 0; i < records.length; i++) {
+
+            //record string from server 
+            var t_str = JSON.stringify(records[i]);
+
+            //parse string to date type
+            var year = t_str.slice(2, 6);
+            var month = t_str.slice(7, 9);
+            var day = t_str.slice(10, 12);
+            var hours = t_str.slice(13, 15);
+            var minutes = t_str.slice(16, 18);
+            var seconds = t_str.slice(19, 20);
+
+            //construct date object
+            var d = new Date(year, month-1, day, hours, minutes, seconds, 10);
+            console.log(d);
+            //convert to long time format 
+            var long_time = Math.round( d.getTime() / 1000 ); 
+            
+            //build a data point 
             var point = {
-                time: records[i][0],
-                y: records[i][1]
+                time: Number(long_time),
+                y: Number(records[i][1])
             };
+
+            //push a point onto the array
             dtPoints.push(point);
+
         }
 
-        dtPoints.push({
-            time: new Date().getTime(),
-            y: 90
-        });
-
+        console.log(dtPoints);
         // plot the chart
-        var delayMillis = 1000; //1 second
+        var delayMillis = 10; //1 second
+        mock_Chart(records, chart);
 
-        for (var j = 0; j < dtPoints.length; j++) {
-            setTimeout(function () {
-            	// This switches the class names...
-    			var className = $('#chart').attr('class');
-    			var newClassName = className === 'epoch category10' ? 'styles2' : 'epoch category10';
-    			$('#chart').removeClass(className)
-    			$('#chart').addClass(newClassName);
-                    
-                $('#chart').push(dtPoints[j]);
-                chart.redraw();
-
-            }, delayMillis);
-
-            var className = $('#chart').attr('class');
-			var newClassName = className === 'styles1' ? 'epoch category10' : 'styles1';
-			$('#chart').removeClass(className)
-			$('#chart').addClass(newClassName);
-            chart.redraw();
-        }
 
     }
 
