@@ -8,8 +8,6 @@ $(function () {
 
     var records = [];
     var chart = $('#chart');
-    var startTime;
-    var endTime;
 
     initChart();
 
@@ -53,17 +51,13 @@ $(function () {
     });
 
 
-    function getChartData(startTime, endTime) {
+    function getChartData() {
 
         var date = $("#date").val();
         var hour1 = $("#hr1").val();
         var min1 = $("#min1").val();
         var hour2 = $("#hr2").val();
         var min2 = $("#min2").val();
-        console.log(date);
-        console.log(hour1);
-        console.log(min2);
-
 
         $.ajax({
             url: "",
