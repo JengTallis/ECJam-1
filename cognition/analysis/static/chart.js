@@ -125,6 +125,56 @@ $(function () {
         });
     }
 
+    function mock_Chart() {
+        var chartData = [
+
+            {
+                label: "Confusion",
+                values: [{
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 80
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 50
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 40
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 30
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 90
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 80
+                }]
+            }
+        ];
+
+        chart = $('#chart').epoch({
+            type: 'time.area',
+            data: chartData,
+            axes: ['top', 'right', 'bottom', 'left'],
+            ticks: {
+                time: 10,
+                right: 5,
+                left: 5
+            },
+            tickFormats: {
+                time: function (d) {
+                    return new Date(time * 1000).toString();
+                }
+            }
+
+        });
+    }
 
     function drawChart() {
         snackbarMessage("draw!");
@@ -150,8 +200,6 @@ $(function () {
             //convert to long time format 
             var long_time = Math.round( d.getTime() / 1000 ); 
             
-            //alert("long time: " + long_time);
-
             //build a data point 
             var point = {
                 time: long_time,
@@ -160,10 +208,13 @@ $(function () {
 
             //push a point onto the array
             dtPoints.push(point);
+
         }
 
         // plot the chart
         var delayMillis = 10; //1 second
+
+        mock_Chart();
 
         for (var j = 0; j < dtPoints.length; j++) {
             setTimeout(function () {
@@ -174,8 +225,9 @@ $(function () {
     			$('#chart').removeClass(className)
     			$('#chart').addClass(newClassName);
                     
-                $('#chart').push(dtPoints[j]);
+                $('#chart').push( Number( dtPoints[j]) );
                 chart.redraw();
+                alert("push point ", Number( dtPoints[j]) );
 
             }, delayMillis);
 
