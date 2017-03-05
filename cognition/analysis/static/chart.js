@@ -6,15 +6,13 @@ $(function () {
     $("#chart").show();
     $("#add-student").hide();
 
-    var records = [];
-    var chart = $('#chart');
+    //var chart = $('#chart');
 
-    initChart();
-
+    //initChart();
+    //mock_Chart()
     // user click view
     $("#submitTime").click(function () {
         getChartData();
-        drawChart();
     });
 
 
@@ -42,7 +40,7 @@ $(function () {
                 "photo": $("#photo-input").val()
             }),
             success: function (data) {
-                records = data.records;
+                var records = data.records;
                 snackbarMessage("getData!");
             }
         });
@@ -69,9 +67,9 @@ $(function () {
             }),
             success: function (data) {
 
-                records = data.records;
+                var records = data.records;
                 snackbarMessage("getData!");
-
+                drawChart(records);
                 alert(  JSON.stringify(records) );
                 
             }
@@ -121,40 +119,15 @@ $(function () {
                     return new Date(time * 1000).toString();
                 }
             }
-
         });
     }
 
-    function mock_Chart() {
+    function mock_Chart(values, chart) {
         var chartData = [
 
             {
                 label: "Confusion",
-                values: [{
-                    time: Math.round(new Date().getTime() / 1000),
-                    y: 100
-                }, {
-                    time: Math.round(new Date().getTime() / 1000),
-                    y: 80
-                }, {
-                    time: Math.round(new Date().getTime() / 1000),
-                    y: 50
-                }, {
-                    time: Math.round(new Date().getTime() / 1000),
-                    y: 40
-                }, {
-                    time: Math.round(new Date().getTime() / 1000),
-                    y: 30
-                }, {
-                    time: Math.round(new Date().getTime() / 1000),
-                    y: 100
-                }, {
-                    time: Math.round(new Date().getTime() / 1000),
-                    y: 90
-                }, {
-                    time: Math.round(new Date().getTime() / 1000),
-                    y: 80
-                }]
+                values: values
             }
         ];
 
@@ -176,11 +149,12 @@ $(function () {
         });
     }
 
-    function drawChart() {
+    function drawChart(records) {
         snackbarMessage("draw!");
-
+        var chart = $('#chart');
         // format data
         var dtPoints = [];
+        console.log(records.length);
         for (var i = 0; i < records.length; i++) {
 
             //record string from server 
@@ -210,35 +184,11 @@ $(function () {
             dtPoints.push(point);
 
         }
-
+        console.log(dtPoints);
         // plot the chart
         var delayMillis = 10; //1 second
+        mock_Chart(records, chart);
 
-        mock_Chart();
-
-        for (var j = 0; j < dtPoints.length; j++) {
-            setTimeout(function () {
-
-            	// This switches the class names...
-    			var className = $('#chart').attr('class');
-    			var newClassName = className === 'epoch category10' ? 'styles2' : 'epoch category10';
-    			$('#chart').removeClass(className)
-    			$('#chart').addClass(newClassName);
-                    
-                $('#chart').push( Number( dtPoints[j]) );
-                chart.redraw();
-                alert("push point ", Number( dtPoints[j]) );
-
-            }, delayMillis);
-
-            // This switches the class names...
-            var className = $('#chart').attr('class');
-			var newClassName = className === 'styles1' ? 'epoch category10' : 'styles1';
-			$('#chart').removeClass(className)
-			$('#chart').addClass(newClassName);
-            
-            chart.redraw();
-        }
 
     }
 
