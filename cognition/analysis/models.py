@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils import timezone
 from datetime import datetime
+import pytz
 # Create your models here.
 
 
@@ -19,20 +20,27 @@ class Record(models.Model):
     @staticmethod
     def getRecords(begin, end):
         begin = Record._parse(begin)
-        end = Record._parse(end)
-        result = [(r.time.astimezone(), r.value) for r in
+        end = Record._parse(end, 2)
+        print(begin, end)
+        result = [(Record._format(r.time.astimezone()), r.value) for r in
                   Record.objects.filter(time__range=[begin, end])]
+        return result
 
     @staticmethod
-    def _parse(s):
-        date = s.split('T')
-        ymd = date[0].split('-')
-        hms = date[1].split(':')
-        for i in ymd:
-            i = int(i)
-        for j in hms:
-            j = int(j)
-        return datetime(ymd[0], ymd[1], ymd[2], hms[0], hms[1], hms[2])
+    def _format(date):
+        return date.strftime("%Y-%m-%d") + "T" + date.strftime("%H:%M:%S")
+
+    @staticmethod
+    def _parse(s, add=0):
+        date = s["date"]
+        dates = date.split("-")
+        hour = s["hour"]
+        minute = s["minute"]
+        tz = pytz.timezone("Asia/Hong_Kong")
+        d = datetime(int(dates[0]), int(dates[1]),
+                     int(dates[2]) + add, int(hour), int(minute), tzinfo=tz)
+        d = d.astimezone(timezone.utc)
+        return d
 
     @staticmethod
     def addRecord(value):

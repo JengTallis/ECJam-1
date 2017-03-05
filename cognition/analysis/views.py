@@ -10,6 +10,7 @@ from threading import Thread
 from queue import Queue
 from concurrent.futures import ThreadPoolExecutor
 from .API import addPersonFace, verify, createPerson, detectFace
+import json
 # Create your views here.
 
 
@@ -54,8 +55,13 @@ def worker(data):
 
 
 def compute(value):
-    result = sum(sum(face["scores"].values()) for face in value)
-    return result
+    return sum(singe(face["scores"]) for face in value) // len(value)
+
+
+def single(face):
+    return (face["anger"] + face["contempt"] +
+            face["sadness"] + face["disgust"] +
+            face["fear"] + face["surprise"]) * 100
 
 
 def verify(v):
@@ -105,13 +111,12 @@ def submitPicture(request):
 @csrf_exempt
 def viewHistory(request):
     if request.method == "POST":
-        start = request.POST.get("start")
-        print(start)
-        end = request.POST.get("end")
-        print(end)
-        if start and end:
-            records = Record.getRecords(start, end)
-            return JsonResponse({"records": records})
+        data = json.loads(request.body.decode("utf8"))
+        start = data["start"]
+        end = data["end"]
+        records = Record.getRecords(start, end)
+        print(records)
+        return JsonResponse({"records": records})
     else:
         return render(request, "analysis/index.html")
 
