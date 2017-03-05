@@ -14,10 +14,6 @@
     background-color: rgba(129, 131, 131, 0.7);
 }
 
-.darkbox {
-    background-color: rgba(20, 19, 19, 0.7);
-}
-
 
 /* Dropdown Button */
 
@@ -35,11 +31,9 @@
     display: inline-block;
 }
 
-
-/* Dropdown Content (Hidden by Default) */
-
-#dateInput {
+#dateInput input {
     margin-left: 3%;
+    color: black;
 }
 
 .dropdown-content {
