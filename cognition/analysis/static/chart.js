@@ -6,13 +6,24 @@ $(function () {
     $("#chart").show();
     $("#add-student").hide();
 
+<<<<<<< HEAD
     //var chart = $('#chart');
+=======
+    var records = [];
+    var chart = $('#chart');
+
+>>>>>>> end
 
     //initChart();
     //mock_Chart()
     // user click view
     $("#submitTime").click(function () {
+<<<<<<< HEAD
         getChartData();
+=======
+        //getChartData();
+        drawChart();
+>>>>>>> end
     });
 
 
@@ -79,6 +90,10 @@ $(function () {
 
     // initial chart
     function initChart() {
+
+        $('canvas').empty();
+        
+        var seed = Math.random()*1;
         var chartData = [
 
             {
@@ -94,10 +109,40 @@ $(function () {
                     y: 50
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: 40
+                    y: Math.random(seed)*100
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: 30
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 50
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
                     y: 100
@@ -122,14 +167,11 @@ $(function () {
         });
     }
 
-    function mock_Chart(values, chart) {
-        var chartData = [
+    function drawChart() {
 
-            {
-                label: "Confusion",
-                values: values
-            }
-        ];
+        initChart();
+
+        snackbarMessage("draw!");
 
         chart = $('#chart').epoch({
             type: 'time.area',
