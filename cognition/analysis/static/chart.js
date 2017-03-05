@@ -9,11 +9,10 @@ $(function () {
     var records = [];
     var chart = $('#chart');
 
-    initChart();
 
     // user click view
     $("#submitTime").click(function () {
-        getChartData();
+        //getChartData();
         drawChart();
     });
 
@@ -81,6 +80,10 @@ $(function () {
 
     // initial chart
     function initChart() {
+
+        $('canvas').empty();
+        
+        var seed = Math.random()*1;
         var chartData = [
 
             {
@@ -96,10 +99,40 @@ $(function () {
                     y: 50
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: 40
+                    y: Math.random(seed)*100
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
-                    y: 30
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: Math.random(seed)*100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 50
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
                     y: 100
@@ -127,6 +160,9 @@ $(function () {
 
 
     function drawChart() {
+
+        initChart();
+
         snackbarMessage("draw!");
 
         // format data
