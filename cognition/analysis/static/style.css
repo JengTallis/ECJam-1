@@ -38,6 +38,10 @@
 
 /* Dropdown Content (Hidden by Default) */
 
+#dateInput {
+    margin-left: 3%;
+}
+
 .dropdown-content {
     display: none;
     position: absolute;
