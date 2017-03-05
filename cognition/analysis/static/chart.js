@@ -64,7 +64,6 @@ $(function () {
     });
 
     function getChartData() {
-
         $.ajax({
             url: "",
             type: "POST",
