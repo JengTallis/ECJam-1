@@ -20,21 +20,25 @@ class Record(models.Model):
     @staticmethod
     def getRecords(begin, end):
         begin = Record._parse(begin)
-        end = Record._parse(end)
+        end = Record._parse(end, 2)
         print(begin, end)
-        result = [(r.time.astimezone(), r.value) for r in
+        result = [(Record._format(r.time.astimezone()), r.value) for r in
                   Record.objects.filter(time__range=[begin, end])]
         return result
 
     @staticmethod
-    def _parse(s):
+    def _format(date):
+        return date.strftime("%Y-%m-%d") + "T" + date.strftime("%H:%M:%S")
+
+    @staticmethod
+    def _parse(s, add=0):
         date = s["date"]
         dates = date.split("-")
         hour = s["hour"]
         minute = s["minute"]
         tz = pytz.timezone("Asia/Hong_Kong")
         d = datetime(int(dates[0]), int(dates[1]),
-                     int(dates[2]), int(hour), int(minute), tzinfo=tz)
+                     int(dates[2]) + add, int(hour), int(minute), tzinfo=tz)
         d = d.astimezone(timezone.utc)
         return d
 
