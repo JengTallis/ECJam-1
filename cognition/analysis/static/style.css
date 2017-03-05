@@ -10,6 +10,8 @@
     margin-left: 5%;
     width: 90%;
     height: 300px;
+    background-image: none;
+    background-color: rgba(129, 131, 131, 0.7);
 }
 
 .darkbox {
@@ -76,6 +78,15 @@
 
 .dropdown:hover .dropbtn {
     background-color: #3e8e41;
+}
+
+.jumbotron {
+    margin-top: 100px;
+    margin-left: 0;
+    margin-right: 0;
+    background-image: url(https://unsplash.it/800/500?image=953);
+    background-size: 100%;
+    height: 100%;
 }
 
 header {
