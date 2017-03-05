@@ -50,11 +50,6 @@ $(function () {
 
     function getChartData() {
 
-        var date = $("#date").val();
-        var hour1 = $("#hr1").val();
-        var min1 = $("#min1").val();
-        var hour2 = $("#hr2").val();
-        var min2 = $("#min2").val();
         $.ajax({
             url: "",
             type: "POST",
@@ -62,14 +57,14 @@ $(function () {
             contentType: "application/json; charset=utf-8",
             data: JSON.stringify({
                 "srart": {
-                    "date": date,
-                    "hour": hour1,
-                    "minute": min1
+                    "date": $("#date").val(),
+                    "hour": $("#hr1").val(),
+                    "minute": $("#min1").val()
                 },
                 "end": {
-                    "date": date,
-                    "hour": hour2,
-                    "minute": min2
+                    "date": $("#date").val(),
+                    "hour": $("#hr2").val(),
+                    "minute": $("#min2").val()
                 }
             }),
             success: function (data) {
