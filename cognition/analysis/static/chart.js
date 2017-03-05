@@ -20,9 +20,17 @@ $(function () {
         var min1 = $("#min1").val();
         var hour2 = $("#hr2").val();
         var min2 = $("#min2").val();
-        startTime = date + "T" + hour1 + ":" + min1 + ":00";
-        endTime = date + "T" + hour2 + ":" + min2 + ":00";
-        //getChartData();
+        startTime = {
+            "date": date,
+            "hour": hour1,
+            "minute": min1
+        };
+        startTime = {
+            "date": date,
+            "hour": hour2,
+            "minute": min2
+        };
+        getChartData();
         drawChart();
     });
 
@@ -147,8 +155,8 @@ $(function () {
 
         for (var j = 0; j < dtPoints.length; j++) {
             setTimeout(function () {
-                $('#chart').push(dtPoints[j]);
-                $('#chart').redraw();
+                chart.push(dtPoints[j]);
+                chart.redraw();
             }, delayMillis);
         }
 
