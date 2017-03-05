@@ -13,6 +13,22 @@ $(function () {
 
     // user click view
     $("#submitTime").click(function () {
+<<<<<<< HEAD
+        var date = $("#date").val();
+        var hour1 = $("#hr1").val();
+        var min1 = $("#min1").val();
+        var hour2 = $("#hr2").val();
+        var min2 = $("#min2").val();
+        startTime = {
+            "date": date,
+            "hour": hour1,
+            "minute": min1
+        };
+        startTime = {
+            "date": date,
+            "hour": hour2,
+            "minute": min2
+        };
         getChartData();
         drawChart();
     });
@@ -97,6 +113,9 @@ $(function () {
                 }, {
                     time: Math.round(new Date().getTime() / 1000),
                     y: 30
+                }, {
+                    time: Math.round(new Date().getTime() / 1000),
+                    y: 100
                 }]
             }
         ];
@@ -143,9 +162,22 @@ $(function () {
 
         for (var j = 0; j < dtPoints.length; j++) {
             setTimeout(function () {
-                chart.push(dtPoints[j]);
+            	// This switches the class names...
+    			var className = $('#chart').attr('class');
+    			var newClassName = className === 'epoch category10' ? 'styles2' : 'epoch category10';
+    			$('#chart').removeClass(className)
+    			$('#chart').addClass(newClassName);
+                    
+                $('#chart').push(dtPoints[j]);
                 chart.redraw();
+
             }, delayMillis);
+
+            var className = $('#chart').attr('class');
+			var newClassName = className === 'styles1' ? 'epoch category10' : 'styles1';
+			$('#chart').removeClass(className)
+			$('#chart').addClass(newClassName);
+            chart.redraw();
         }
 
     }
