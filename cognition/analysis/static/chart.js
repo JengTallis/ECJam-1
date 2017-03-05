@@ -25,12 +25,12 @@ $(function () {
             "hour": hour1,
             "minute": min1
         };
-        startTime = {
+        endTime = {
             "date": date,
             "hour": hour2,
             "minute": min2
         };
-        getChartData();
+        getChartData(startTime, endTime);
         drawChart();
     });
 
@@ -67,7 +67,8 @@ $(function () {
 
 
     function getChartData(startTime, endTime) {
-
+        console.log(startTime);
+        console.log(endTime);
         $.ajax({
             url: "",
             type: "POST",

@@ -102,12 +102,16 @@ def submitPicture(request):
         return HttpResponse(200)
 
 
+@csrf_exempt
 def viewHistory(request):
     if request.method == "POST":
         start = request.POST.get("start")
+        print(start)
         end = request.POST.get("end")
-        records = Record.getRecords(start, end)
-        return JsonResponse({"records": records})
+        print(end)
+        if start and end:
+            records = Record.getRecords(start, end)
+            return JsonResponse({"records": records})
     else:
         return render(request, "analysis/index.html")
 
