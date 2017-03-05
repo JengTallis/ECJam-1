@@ -18,8 +18,6 @@ $(function () {
     });
 
 
-
-
     $("#chartBtn").click(function () {
         $("#dateInput").show();
         $("#chart").show();
@@ -49,6 +47,7 @@ $(function () {
             }
         });
     });
+
     function getChartData() {
         var date = $("#date").val();
         var hour1 = $("#hr1").val();
@@ -83,8 +82,6 @@ $(function () {
     // initial chart
     function initChart() {
 
-        var test = Math.round(new Date(startTime).getTime() / 1000);
-        console.log(test);
         var chartData = [
 
             {
